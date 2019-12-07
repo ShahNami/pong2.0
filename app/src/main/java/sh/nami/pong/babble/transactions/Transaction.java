@@ -3,14 +3,15 @@ package sh.nami.pong.babble.transactions;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
-import java.lang.reflect.Type;
+
+import sh.nami.pong.Constants;
 
 public class Transaction<T> {
 
     private final static Gson gson = new Gson();
 
     @SerializedName("type")
-    public Type type = Type.MOVE_PLAYER;
+    public Constants.Type type = Constants.Type.NEW_PLAYER;
 
     @SerializedName("data")
     public T data = null;

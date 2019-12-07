@@ -1,37 +1,32 @@
 package sh.nami.pong.models;
 
 
-import android.graphics.Canvas;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 
-public class Ball {
+import sh.nami.pong.Constants;
+import sh.nami.pong.sprites.BallSprite;
+
+public class Ball extends BallSprite {
+
+    enum BallState
+    {
+        HIT, MISS, MOTION, BOUNCE
+    }
+
+
+    public void update() {
+        this.position.add(this.direction);
+    }
+
     private Vector position;
     private int velocity;
     private NVector direction;
 
-    public Ball(Vector position) {
-        this.calculateTrajectory(position);
-    }
-
-
-    public void draw(Canvas canvas) {
-        // y = kx + b
-        // k = tanr
-    }
-
-    public void update() {
-        int newX = position.getX() + direction.getX();
-        int newY = position.getY() + direction.getY();
-        if(newX == //hit) {
-            //if(hit == upper wall) {
-                // newY = -newY
-            //if(hit == right wall) {
-                // newX = -newX
-                // newY = -newY
-            //if(hit == lower wall) {
-                // newX = -newX
-
-
-
+    public Ball(Bitmap image, Vector position, NVector direction) {
+        super(image);
+        this.position = position;
+        this.direction = direction;
     }
 
     public Vector getDirection() {
@@ -44,5 +39,31 @@ public class Ball {
 
     public int getVelocity() {
         return this.velocity;
+    }
+
+
+    private BallState didCollide(Player p) {
+        final int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        final int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+
+        if ((this.position.getX() + this.getWidth() / 2) == p.getPosition().getX() && this.position.getY() >= p.getPosition().getY() && this.position.getY() <= (p.getPosition().getY() + Constants.PADDLE_HEIGHT)) {
+            // Ball hit left paddle
+            return BallState.HIT;
+        } else if ((this.position.getX() - this.getWidth() / 2) == 0) {
+            // Left wall collision
+            return BallState.MISS;
+        } else if ((this.position.getX() + this.getWidth() / 2) >= screenWidth) {
+            // Right wall collision
+            return BallState.MISS;
+        } else if ((this.position.getY() - this.getHeight() / 2) == 0) {
+            // Top wall collision
+            return BallState.BOUNCE;
+        } else if ((this.position.getY() + this.getHeight() / 2) >= screenHeight) {
+            // Bottom wall collision
+            return BallState.BOUNCE;
+        } else {
+            // Still in motion
+            return BallState.MOTION;
+        }
     }
 }

@@ -7,11 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import sh.nami.pong.babble.Service;
 import sh.nami.pong.models.Player;
@@ -76,10 +73,7 @@ public class GamePlayScene implements Scene {
         if(canvas != null) {
             grid.draw(canvas);
             for(Player player : Service.getInstance().state.getPlayers().values()) {
-                player.draw();
-            }
-            for(TempSprite splash : this.temps) {
-                splash.draw(canvas);
+                player.draw(canvas);
             }
         }
     }

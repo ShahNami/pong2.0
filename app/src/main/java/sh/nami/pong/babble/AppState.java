@@ -1,13 +1,9 @@
 package sh.nami.pong.babble;
 
-import android.util.Log;
-
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
 import io.mosaicnetworks.babble.node.BabbleState;
-import sh.nami.pong.Constants;
 import sh.nami.pong.babble.transactions.Transaction;
 import sh.nami.pong.models.Ball;
 import sh.nami.pong.models.Player;

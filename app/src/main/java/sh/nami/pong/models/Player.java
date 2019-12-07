@@ -1,30 +1,27 @@
 package sh.nami.pong.models;
 
-public class Player {
+
+import android.graphics.Bitmap;
+
+import sh.nami.pong.sprites.PaddleSprite;
+
+public class Player extends PaddleSprite {
 
     private String moniker;
-    private Vector position;
     private int score = 0;
 
-    public Player(String moniker, Vector position) {
+    public Player(Bitmap image, String moniker, Vector position) {
+        super(image);
         this.moniker = moniker;
-        this.position = position;
+        this.setPosition(position);
     }
 
     public String getMoniker() {
         return this.moniker;
     }
 
-    public int getY() {
-        return this.y;
-    }
-
     public int getScore() {
         return this.score;
-    }
-
-    private void move(int y) {
-        this.y += y;
     }
 
 }

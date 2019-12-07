@@ -33,7 +33,7 @@ public class MainThread extends Thread {
 
         int frameCount = 0;
 
-        long targetTime = 1000 / Constants.targetFPS;
+        long targetTime = 1000 / Constants.TARGET_FPS;
 
         while(running) {
             startTime = System.nanoTime();
@@ -72,7 +72,7 @@ public class MainThread extends Thread {
 
             totalTime += System.nanoTime() - startTime;
             frameCount++;
-            if (frameCount == Constants.targetFPS)        {
+            if (frameCount == Constants.TARGET_FPS)        {
                 averageFPS = 1000 / ((totalTime / frameCount) / 1000000);
                 frameCount = 0;
                 totalTime = 0;

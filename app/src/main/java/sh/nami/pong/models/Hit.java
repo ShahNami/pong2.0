@@ -7,12 +7,12 @@ public class Hit {
     public int x;
     @SerializedName("y")
     public int y;
-    @SerializedName("velocity")
-    public float velocity;
+    @SerializedName("direction")
+    public NVector direction;
 
-    public Hit(int x, int y, float velocity) {
+    public Hit(int x, int y, NVector direction) {
         this.x = x;
         this.y = y;
-        this.velocity = velocity;
+        this.direction = direction;
     }
 }
