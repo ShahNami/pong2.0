@@ -1,19 +1,21 @@
 package sh.nami.pong.models;
 
 public class Vector {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 
-    public Vector(int x, int y) {
+    public Vector(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getX() {
+    public double getX() {
         return this.x;
     }
 
-    public int getY() {
+    public double getY() {
         return this.y;
     }
+
+
 }
