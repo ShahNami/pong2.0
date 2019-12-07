@@ -4,7 +4,8 @@ public class Constants {
     public static final long TARGET_FPS = 60;
 
     public enum Type {
-        NEW_PLAYER
+        NEW_PLAYER,
+        INIT_BALL
     }
 
 }

@@ -10,11 +10,11 @@ import sh.nami.pong.Constants;
 public class NewPlayerTx implements BabbleTx {
 
     @SerializedName("moniker")
-    private String moniker;
+    public String moniker;
     @SerializedName("x")
-    private int x;
+    public int x;
     @SerializedName("y")
-    private int y;
+    public int y;
     private final static Gson gson = new Gson();
 
     @SerializedName("type")
@@ -24,6 +24,10 @@ public class NewPlayerTx implements BabbleTx {
         this.moniker = moniker;
         this.x = x;
         this.y = y;
+    }
+
+    public static NewPlayerTx fromJson(String rawTx) {
+        return gson.fromJson(rawTx, NewPlayerTx.class);
     }
 
     @Override
