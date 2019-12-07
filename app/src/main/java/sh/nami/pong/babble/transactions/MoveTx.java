@@ -26,3 +26,4 @@ public class MoveTx extends Transaction<Move> implements BabbleTx {
         return gson.toJson(this).getBytes();
     }
 }
+
