@@ -19,6 +19,16 @@ public class Ball {
     }
 
     public void update() {
+        int newX = position.getX() + direction.getX();
+        int newY = position.getY() + direction.getY();
+        if(newX == //hit) {
+            //if(hit == upper wall) {
+                // newY = -newY
+            //if(hit == right wall) {
+                // newX = -newX
+                // newY = -newY
+            //if(hit == lower wall) {
+                // newX = -newX
 
 
 

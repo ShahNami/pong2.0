@@ -3,12 +3,12 @@ package sh.nami.pong.models;
 public class Player {
 
     private String moniker;
-    private int y;
+    private Vector position;
     private int score = 0;
 
-    public Player(String moniker, int y) {
+    public Player(String moniker, Vector position) {
         this.moniker = moniker;
-        this.y = y;
+        this.position = position;
     }
 
     public String getMoniker() {

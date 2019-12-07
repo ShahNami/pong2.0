@@ -7,61 +7,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.mosaicnetworks.babble.node.BabbleState;
+import sh.nami.pong.Constants;
 import sh.nami.pong.babble.transactions.Transaction;
+import sh.nami.pong.models.Ball;
 import sh.nami.pong.models.Player;
+import sh.nami.pong.models.Vector;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class AppState implements BabbleState {
     private Map<String, Player> players = new HashMap<>();
+    private Ball ball = new Ball(new Vector(0, 0));
 
     @Override
     public byte[] applyTransactions(byte[][] transactions) {
 
         for(byte[] transaction : transactions) {
-            String rawTx = new String(transaction, StandardCharsets.UTF_8);
-
-            Transaction tx = Transaction.fromJson(rawTx);;
+            String rawTx = new String(transaction, UTF_8);
+            Transaction tx = Transaction.fromJson(rawTx);
 
             switch(tx.type) {
-                case APPLY_DAMAGE:
-                    ApplyDamageTx dmgTx = ApplyDamageTx.fromJson(rawTx);
-                    Player p = this.players.get(dmgTx.data.name);
+                case NEW_PLAYER :
 
-                    Log.i("ApplyDmg Received", String.format("%s@(%d)", dmgTx.data.name, dmgTx.data.hit));
 
-                    if (p == null) {
-                        Log.e("PlayerNotFound", "Cannot find player");
-                        break;
-                    }
-
-                    p.takeHit(dmgTx.data.hit);
-
-                    break;
-
-                case MOVE_PLAYER:
-                    MovePlayerTx moveTx = MovePlayerTx.fromJson(rawTx);
-                    Player p2 = this.players.get(moveTx.data.name);
-
-                    Log.i("MovePlayerTx Received", String.format("%s@(%d, %d)", moveTx.data.name, moveTx.data.x, moveTx.data.y));
-
-                    if (p2 == null) {
-                        Log.e("PlayerNotFound", "Cannot find player");
-                        break;
-                    }
-
-                    p2.setNewPosition(moveTx.data.x, moveTx.data.y);
-
-                    break;
-
-                case NEW_PLAYER:
-                    NewPlayerTx newPlayerTx = NewPlayerTx.fromJson(rawTx);
-
-                    Log.i("NewPlayerTx Received", String.format("%s@(%d, %d)", newPlayerTx.data.getName(), newPlayerTx.data.x, newPlayerTx.data.y));
-
-                    this.addPlayer(newPlayerTx.data);
-
-                    break;
-                default:
-                    break;
             }
         }
 
