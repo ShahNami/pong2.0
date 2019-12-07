@@ -2,9 +2,9 @@ package sh.nami.pong.sprites;
 
 import android.graphics.Bitmap;
 
-public class PaddleSprite extends Sprite {
+public class Tile extends Sprite {
 
-    public PaddleSprite(Bitmap image) {
+    public Tile(Bitmap image) {
         super(image);
     }
 }

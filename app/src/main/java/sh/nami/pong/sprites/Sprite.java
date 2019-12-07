@@ -29,6 +29,10 @@ public class Sprite {
 
     }
 
+    public Bitmap getImage() {
+        return this.image;
+    }
+
     public Vector getPosition() {
         return this.position;
     }
