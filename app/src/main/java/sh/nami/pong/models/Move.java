@@ -1,5 +1,12 @@
 package sh.nami.pong.models;
 
-public class Move {
+import com.google.gson.annotations.SerializedName;
 
+public class Move {
+    @SerializedName("direction")
+    public Vector position;
+
+    public Move(Vector position) {
+        this.position = position;
+    }
 }

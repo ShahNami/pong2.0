@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import sh.nami.pong.Constants;
@@ -12,6 +13,7 @@ import sh.nami.pong.R;
 import sh.nami.pong.babble.Service;
 import sh.nami.pong.models.Ball;
 import sh.nami.pong.models.Hit;
+import sh.nami.pong.models.Move;
 import sh.nami.pong.models.NVector;
 import sh.nami.pong.models.Player;
 import sh.nami.pong.models.Vector;
@@ -91,7 +93,11 @@ public class GamePlayScene implements Scene {
     @Override
     public void receiveTouch(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
-
+            Player p1 = Service.getInstance().state.getPlayer(1);
+            Vector draggedPosition = new Vector(p1.getPosition().getX(), (int)event.getY());
+            draggedPosition.setY((int)event.getY() - (p1.getHeight()/2));
+            Move move = new Move(draggedPosition);
+            Service.getInstance().movePlayer(move);
         }
     }
 }

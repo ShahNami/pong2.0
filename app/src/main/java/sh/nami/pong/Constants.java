@@ -13,7 +13,8 @@ public class Constants {
     public enum Type {
         NEW_PLAYER,
         INIT_BALL,
-        HIT_BALL
+        HIT_BALL,
+        MOVE_PLAYER
     }
     public static final int PADDLE_MARGIN = 30;
     public static final int PADDLE_HEIGHT = 50;

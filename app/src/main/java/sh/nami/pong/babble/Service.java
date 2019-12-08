@@ -5,10 +5,12 @@ import io.mosaicnetworks.babble.node.BabbleConfig;
 import io.mosaicnetworks.babble.node.BabbleService;
 
 import sh.nami.pong.babble.transactions.HitTx;
+import sh.nami.pong.babble.transactions.MovePlayerTx;
 import sh.nami.pong.babble.transactions.NewBallTx;
 import sh.nami.pong.babble.transactions.NewPlayerTx;
 import sh.nami.pong.models.Ball;
 import sh.nami.pong.models.Hit;
+import sh.nami.pong.models.Move;
 import sh.nami.pong.models.Player;
 
 public class Service extends BabbleService<AppState> {
@@ -41,6 +43,11 @@ public class Service extends BabbleService<AppState> {
         HitTx tx = new HitTx(hit);
 
         getInstance().submitTx((tx));
+    }
+
+    public void movePlayer(Move move) {
+        MovePlayerTx tx = new MovePlayerTx(move);
+        getInstance().submitTx(tx);
     }
 
 }
