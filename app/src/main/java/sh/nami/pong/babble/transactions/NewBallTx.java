@@ -1,25 +1,19 @@
 package sh.nami.pong.babble.transactions;
 
 import com.google.gson.Gson;
-import com.google.gson.annotations.SerializedName;
 
 import io.mosaicnetworks.babble.node.BabbleTx;
+
 import sh.nami.pong.Constants;
+import sh.nami.pong.models.Ball;
 
-public class NewBallTx implements BabbleTx {
-
-    @SerializedName("x")
-    public int x;
-    @SerializedName("y")
-    public int y;
+public class NewBallTx extends Tx<Ball> implements BabbleTx {
     private final static Gson gson = new Gson();
 
-    @SerializedName("type")
-    public final Constants.Type type = Constants.Type.INIT_BALL;
+    public NewBallTx(Ball b) {
+        super(b);
 
-    public NewBallTx(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.type = Constants.Type.INIT_BALL;
     }
 
     public static NewBallTx fromJson(String rawTx) {
