@@ -77,4 +77,8 @@ public class AppState implements BabbleState {
         return this.player1;
     }
 
+    public Ball getBall() {
+        return this.ball;
+    }
+
 }

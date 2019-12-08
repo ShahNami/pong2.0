@@ -2,6 +2,7 @@ package sh.nami.pong.scenes;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
@@ -23,14 +24,19 @@ public class GamePlayScene implements Scene {
     GamePlayScene(Context context, Resources res) {
         this.grid = new Grid(BitmapFactory.decodeResource(res, R.drawable.tile));
 
-        Vector p1Pos = new Vector(Constants.PADDLE_MARGIN, Resources.getSystem().getDisplayMetrics().heightPixels / 2 - Constants.PADDLE_HEIGHT / 2);
-        Player p1 = new Player(BitmapFactory.decodeResource(res, R.drawable.paddle), "Player 1", p1Pos);
+        Bitmap paddle = BitmapFactory.decodeResource(res, R.drawable.paddle);
+        Bitmap ball = BitmapFactory.decodeResource(res, R.drawable.ball);
 
-        Vector p2Pos = new Vector( Resources.getSystem().getDisplayMetrics().widthPixels - Constants.PADDLE_MARGIN - Constants.PADDLE_WIDTH - 15, p1Pos.getY());
-        Player p2 = new Player(BitmapFactory.decodeResource(res, R.drawable.paddle), "Player 2", p2Pos);
+        Vector p1Pos = new Vector(Constants.PADDLE_MARGIN, Constants.screenHeight / 2 - paddle.getHeight()/2);
+        Player p1 = new Player(paddle, "Player 1", p1Pos);
 
-        Vector ballPos = new Vector(Constants.PADDLE_MARGIN + Constants.PADDLE_WIDTH, p1Pos.getY());
-        Ball b = new Ball(BitmapFactory.decodeResource(res, R.drawable.ball), ballPos, new NVector(1, 1));
+        Vector p2Pos = new Vector( Constants.screenWidth - Constants.PADDLE_MARGIN - paddle.getWidth() - 15, p1Pos.getY());
+        Player p2 = new Player(paddle, "Player 2", p2Pos);
+
+
+        Vector ballPos = new Vector(p1Pos.getX() + paddle.getWidth(), Constants.screenHeight / 2 - ball.getHeight()/2);
+        Ball b = new Ball(ball, ballPos, new NVector(1, 1));
+
 
         Service.getInstance().startGame(b, p1, p2);
     }
@@ -42,10 +48,18 @@ public class GamePlayScene implements Scene {
         Player p1 = Service.getInstance().state.getPlayer(1);
         Player p2 = Service.getInstance().state.getPlayer(2);
 
+        Ball b = Service.getInstance().state.getBall();
+
+        if(b != null) {
+            b.update();
+        }
+
         if(p1 != null && p2 != null) {
             p1.update();
             p2.update();
         }
+
+
     }
 
     @Override
@@ -54,6 +68,11 @@ public class GamePlayScene implements Scene {
             grid.draw(canvas);
             Player p1 = Service.getInstance().state.getPlayer(1);
             Player p2 = Service.getInstance().state.getPlayer(2);
+            Ball b = Service.getInstance().state.getBall();
+
+            if(b != null) {
+                b.draw(canvas);
+            }
 
             if(p1 != null && p2 != null) {
                 p1.draw(canvas);

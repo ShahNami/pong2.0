@@ -42,8 +42,7 @@ public class Ball extends BallSprite {
 
 
     private BallState didCollide(Player p) {
-        final int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-        final int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+
 
         if ((this.position.getX() + this.getWidth() / 2) == p.getPosition().getX() && this.position.getY() >= p.getPosition().getY() && this.position.getY() <= (p.getPosition().getY() + Constants.PADDLE_HEIGHT)) {
             // Ball hit left paddle
@@ -51,13 +50,13 @@ public class Ball extends BallSprite {
         } else if ((this.position.getX() - this.getWidth() / 2) == 0) {
             // Left wall collision
             return BallState.MISS;
-        } else if ((this.position.getX() + this.getWidth() / 2) >= screenWidth) {
+        } else if ((this.position.getX() + this.getWidth() / 2) >= Constants.screenWidth) {
             // Right wall collision
             return BallState.MISS;
         } else if ((this.position.getY() - this.getHeight() / 2) == 0) {
             // Top wall collision
             return BallState.BOUNCE;
-        } else if ((this.position.getY() + this.getHeight() / 2) >= screenHeight) {
+        } else if ((this.position.getY() + this.getHeight() / 2) >= Constants.screenHeight) {
             // Bottom wall collision
             return BallState.BOUNCE;
         } else {
