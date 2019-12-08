@@ -23,11 +23,10 @@ public class GamePlayScene implements Scene {
     GamePlayScene(Context context, Resources res) {
         this.grid = new Grid(BitmapFactory.decodeResource(res, R.drawable.tile));
 
-        // init player1, player2, ball
         Vector p1Pos = new Vector(Constants.PADDLE_MARGIN, Resources.getSystem().getDisplayMetrics().heightPixels / 2 - Constants.PADDLE_HEIGHT / 2);
         Player p1 = new Player(BitmapFactory.decodeResource(res, R.drawable.paddle), "Player 1", p1Pos);
 
-        Vector p2Pos = new Vector( Resources.getSystem().getDisplayMetrics().widthPixels - 10, p1Pos.getY());
+        Vector p2Pos = new Vector( Resources.getSystem().getDisplayMetrics().widthPixels - Constants.PADDLE_MARGIN - Constants.PADDLE_WIDTH - 15, p1Pos.getY());
         Player p2 = new Player(BitmapFactory.decodeResource(res, R.drawable.paddle), "Player 2", p2Pos);
 
         Vector ballPos = new Vector(Constants.PADDLE_MARGIN + Constants.PADDLE_WIDTH, p1Pos.getY());

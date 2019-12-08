@@ -4,6 +4,8 @@ package sh.nami.pong.models;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 
+import com.google.gson.annotations.SerializedName;
+
 import sh.nami.pong.Constants;
 import sh.nami.pong.sprites.BallSprite;
 
@@ -14,19 +16,15 @@ public class Ball extends BallSprite {
         HIT, MISS, MOTION, BOUNCE
     }
 
-
-    @Override
-    public void update() {
-    }
-
-    private Vector position;
+    @SerializedName("velocity")
     private int velocity;
+    @SerializedName("direction")
     private NVector direction;
 
     public Ball(Bitmap image, Vector position, NVector direction) {
         super(image);
 
-        this.position = position;
+        this.setPosition(position);
         this.direction = direction;
     }
 
@@ -66,5 +64,10 @@ public class Ball extends BallSprite {
             // Still in motion
             return BallState.MOTION;
         }
+    }
+
+    @Override
+    public void update() {
+
     }
 }

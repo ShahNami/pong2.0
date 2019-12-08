@@ -7,7 +7,7 @@ import sh.nami.pong.models.Vector;
 
 public class Sprite {
     private Bitmap image;
-    private Vector position;
+    protected Vector position;
 
     public Sprite(Bitmap image) {
         this.image = image;

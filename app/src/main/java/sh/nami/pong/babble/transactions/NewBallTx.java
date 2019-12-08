@@ -3,7 +3,6 @@ package sh.nami.pong.babble.transactions;
 import com.google.gson.Gson;
 
 import io.mosaicnetworks.babble.node.BabbleTx;
-
 import sh.nami.pong.Constants;
 import sh.nami.pong.models.Ball;
 

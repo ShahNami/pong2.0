@@ -1,7 +1,13 @@
 package sh.nami.pong.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Vector {
+
+
+    @SerializedName("x")
     private float x;
+    @SerializedName("y")
     private float y;
 
     public Vector(float x, float y) {
