@@ -14,12 +14,17 @@ public class Player extends PaddleSprite {
     @SerializedName("score")
     private int score = 0;
 
+    private Vector newPosition;
+
+    private int velocity = 50;
+
     public Player(Bitmap image, String moniker, Vector position) {
         super(image);
 
         this.moniker = moniker;
 
         this.setPosition(position);
+        this.newPosition = position;
     }
 
     public String getMoniker() {
@@ -32,5 +37,17 @@ public class Player extends PaddleSprite {
 
     @Override
     public void update(){
+        if (this.getPosition().getY() + this.velocity < this.newPosition.getY()) {
+            NVector direction = new NVector(0, 1);
+            this.getPosition().add(direction.mult(velocity));
+        } else if (this.getPosition().getY() - this.velocity > this.newPosition.getY()) {
+            NVector direction = new NVector(0, -1);
+            this.getPosition().add(direction.mult(velocity));
+        }
     }
+
+    public void move(Vector vector) {
+        this.newPosition = vector;
+    }
+
 }

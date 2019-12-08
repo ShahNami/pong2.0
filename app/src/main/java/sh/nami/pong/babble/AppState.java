@@ -5,6 +5,7 @@ import android.util.Log;
 import io.mosaicnetworks.babble.node.BabbleState;
 
 import sh.nami.pong.babble.transactions.HitTx;
+import sh.nami.pong.babble.transactions.MovePlayerTx;
 import sh.nami.pong.babble.transactions.NewBallTx;
 import sh.nami.pong.babble.transactions.NewPlayerTx;
 import sh.nami.pong.babble.transactions.Tx;
@@ -55,6 +56,17 @@ public class AppState implements BabbleState {
 
                     if(this.ball != null) {
                         this.ball.setDirection(hitTx.data.direction);
+                    }
+
+                    break;
+
+                case MOVE_PLAYER:
+                    Log.i("MovePlayerTx", "Incoming MovePlayerTx");
+                    MovePlayerTx movePlayerTx = MovePlayerTx.fromJson(rawTx);
+
+                    // TODO: Get player by moniker instead
+                    if(this.player1 != null) {
+                        this.player1.move(movePlayerTx.data.position);
                     }
 
                     break;
