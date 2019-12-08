@@ -27,20 +27,8 @@ public class MainActivity extends Activity {
     }
 
     public void hostNode(View view) {
+        Intent intent = new Intent(this, LobbyActivity.class);
 
-        this.moniker = ((EditText)findViewById(R.id.moniker)).getText().toString();
-
-        Service.getInstance().configureNew(moniker, Utils.getIPAddr(this));
-
-        // Start instance
-        Service.getInstance().start();
-
-        if (Service.getInstance().getState() != BabbleService.State.RUNNING_WITH_DISCOVERY) {
-            // Toast.makeText(this, "Unable to advertise peers", Toast.LENGTH_LONG).show();
-            Log.e("startNew", "Unable to advertise peers");
-        }
-
-        Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra(Constants.EXTRA_TYPE, 0);
         intent.putExtra(Constants.EXTRA_MONIKER, this.moniker);
 
@@ -48,11 +36,13 @@ public class MainActivity extends Activity {
     }
 
     public void joinNode(View view) {
-//        this.moniker = ((EditText)findViewById(R.id.moniker)).getText().toString();
-//
-//        Intent intent = new Intent(this, LobbyActivity.class);
-//        intent.putExtra(EXTRA_TYPE, 1);
-//        intent.putExtra(EXTRA_MONIKER, this.moniker);
-//        startActivity(intent);
+        this.moniker = ((EditText)findViewById(R.id.moniker)).getText().toString();
+
+        Intent intent = new Intent(this, LobbyActivity.class);
+
+        intent.putExtra(Constants.EXTRA_TYPE, 1);
+        intent.putExtra(Constants.EXTRA_MONIKER, this.moniker);
+
+        startActivity(intent);
     }
 }

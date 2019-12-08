@@ -25,18 +25,17 @@ public class Service extends BabbleService<AppState> {
     }
 
     private Service() {
-        super(new AppState(), new BabbleConfig.Builder().heartbeat(1).logLevel(BabbleConfig.LogLevel.DEBUG).build());
+        super(new AppState(), new BabbleConfig.Builder().heartbeat(10).logLevel(BabbleConfig.LogLevel.DEBUG).build());
     }
 
-    public void startGame(Ball b, Player p1, Player p2) {
-        NewPlayerTx p1Tx = new NewPlayerTx(p1);
-        NewPlayerTx p2Tx = new NewPlayerTx(p2);
-
+    public void startGame(Ball b) {
         NewBallTx ballTx = new NewBallTx(b);
         getInstance().submitTx(ballTx);
+    }
 
+    public void addPlayer(Player p1) {
+        NewPlayerTx p1Tx = new NewPlayerTx(p1);
         getInstance().submitTx(p1Tx);
-        getInstance().submitTx(p2Tx);
     }
 
     public void hitBall(Hit hit) {

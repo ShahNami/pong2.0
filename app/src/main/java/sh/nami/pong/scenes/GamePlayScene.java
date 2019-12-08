@@ -27,21 +27,16 @@ public class GamePlayScene implements Scene {
     GamePlayScene(Context context, Resources res) {
         this.grid = new Grid(BitmapFactory.decodeResource(res, R.drawable.tile));
 
-        Bitmap paddle = BitmapFactory.decodeResource(res, R.drawable.paddle);
+        Player p1 = Service.getInstance().state.getPlayer(1);
+
         Bitmap ball = BitmapFactory.decodeResource(res, R.drawable.ball);
 
-        Vector p1Pos = new Vector(Constants.PADDLE_MARGIN, Constants.screenHeight / 2 - paddle.getHeight()/2);
-        Player p1 = new Player(paddle, "Player 1", p1Pos);
-
-        Vector p2Pos = new Vector( Constants.screenWidth - Constants.PADDLE_MARGIN - paddle.getWidth() - 15, p1Pos.getY());
-        Player p2 = new Player(paddle, "Player 2", p2Pos);
-
-        Vector ballPos = new Vector(p1Pos.getX() + paddle.getWidth(), Constants.screenHeight / 2 - ball.getHeight()/2);
+        Vector ballPos = new Vector(p1.getPosition().getX() + p1.getWidth(), Constants.screenHeight / 2 - ball.getHeight()/2);
         Ball b = new Ball(ball, ballPos, new NVector(1, 1));
 
         Hit hit = new Hit(new NVector(1, 0));
 
-        Service.getInstance().startGame(b, p1, p2);
+        Service.getInstance().startGame(b);
         Service.getInstance().hitBall(hit);
     }
 
