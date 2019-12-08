@@ -67,23 +67,11 @@ public class Ball extends BallSprite {
         } else if(this.direction.getX() < 0) {
             if (this.position.getX() > p1.getPosition().getX() + p1.getWidth()) {
                 this.position.add(this.direction.mult(this.velocity));
-            } else if(this.position.getX() <= p1.getPosition().getX() + p1.getWidth()) {
+            } else if(this.position.getX() <= p1.getPosition().getX() + p1.getWidth() && this.position.getY() <= p1.getPosition().getY() + p1.getHeight() && this.position.getY() >= p1.getPosition().getY()) {
                 Log.i("P2 Collision", "Collided");
                 Hit hit = new Hit(this.direction.reflectX());
                 Service.getInstance().hitBall(hit);
             }
         }
-
-//        if (this.direction.getX() < 0) {
-//            boolean p1Collision = this.didCollide(p1);
-//
-//            if (this.position.getX() > p1.getPosition().getX() + p1.getImage().getWidth()) {
-//                this.position.add(this.direction.mult(this.velocity));
-//            } else {
-//                Log.i("P1 Collision", p1Collision ? "Collided" : "Nope");
-//                Hit hit = new Hit(this.direction.reflectX());
-//                Service.getInstance().hitBall(hit);
-//            }
-//        }
     }
 }
