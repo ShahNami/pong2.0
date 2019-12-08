@@ -3,11 +3,8 @@ package sh.nami.pong.models;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import sh.nami.pong.Constants;
-import sh.nami.pong.R;
 import sh.nami.pong.sprites.BallSprite;
 
 public class Ball extends BallSprite {
@@ -20,20 +17,15 @@ public class Ball extends BallSprite {
 
     @Override
     public void update() {
-        this.position.add(this.direction);
-        if(this.getImage() == null) {
-            Log.e("Update Ball", "Image is null");
-            Bitmap ball = BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.ball);
-            this.setImage(ball);
-        }
     }
 
     private Vector position;
     private int velocity;
     private NVector direction;
 
-    public Ball(Vector position, NVector direction) {
-        super(null);
+    public Ball(Bitmap image, Vector position, NVector direction) {
+        super(image);
+
         this.position = position;
         this.direction = direction;
     }

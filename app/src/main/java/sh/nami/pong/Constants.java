@@ -11,4 +11,5 @@ public class Constants {
     }
     public static final int PADDLE_MARGIN = 10;
     public static final int PADDLE_HEIGHT = 50;
+    public static final int PADDLE_WIDTH = 10;
 }
