@@ -17,7 +17,8 @@ public class Ball extends BallSprite {
     }
 
     @SerializedName("velocity")
-    private int velocity;
+    private int velocity = 10;
+
     @SerializedName("direction")
     private NVector direction;
 
@@ -42,8 +43,6 @@ public class Ball extends BallSprite {
 
 
     private BallState didCollide(Player p) {
-
-
         if ((this.position.getX() + this.getWidth() / 2) == p.getPosition().getX() && this.position.getY() >= p.getPosition().getY() && this.position.getY() <= (p.getPosition().getY() + Constants.PADDLE_HEIGHT)) {
             // Ball hit left paddle
             return BallState.HIT;
@@ -67,6 +66,6 @@ public class Ball extends BallSprite {
 
     @Override
     public void update() {
-
+        this.position.add(this.direction.mult(this.velocity));
     }
 }

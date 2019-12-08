@@ -11,6 +11,7 @@ import sh.nami.pong.Constants;
 import sh.nami.pong.R;
 import sh.nami.pong.babble.Service;
 import sh.nami.pong.models.Ball;
+import sh.nami.pong.models.Hit;
 import sh.nami.pong.models.NVector;
 import sh.nami.pong.models.Player;
 import sh.nami.pong.models.Vector;
@@ -33,12 +34,13 @@ public class GamePlayScene implements Scene {
         Vector p2Pos = new Vector( Constants.screenWidth - Constants.PADDLE_MARGIN - paddle.getWidth() - 15, p1Pos.getY());
         Player p2 = new Player(paddle, "Player 2", p2Pos);
 
-
         Vector ballPos = new Vector(p1Pos.getX() + paddle.getWidth(), Constants.screenHeight / 2 - ball.getHeight()/2);
         Ball b = new Ball(ball, ballPos, new NVector(1, 1));
 
+        Hit hit = new Hit(new NVector(1, 1));
 
         Service.getInstance().startGame(b, p1, p2);
+        Service.getInstance().hitBall(hit);
     }
 
     @Override

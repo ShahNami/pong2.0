@@ -4,9 +4,11 @@ package sh.nami.pong.babble;
 import io.mosaicnetworks.babble.node.BabbleConfig;
 import io.mosaicnetworks.babble.node.BabbleService;
 
+import sh.nami.pong.babble.transactions.HitTx;
 import sh.nami.pong.babble.transactions.NewBallTx;
 import sh.nami.pong.babble.transactions.NewPlayerTx;
 import sh.nami.pong.models.Ball;
+import sh.nami.pong.models.Hit;
 import sh.nami.pong.models.Player;
 
 public class Service extends BabbleService<AppState> {
@@ -33,6 +35,12 @@ public class Service extends BabbleService<AppState> {
 
         getInstance().submitTx(p1Tx);
         getInstance().submitTx(p2Tx);
+    }
+
+    public void hitBall(Hit hit) {
+        HitTx tx = new HitTx(hit);
+
+        getInstance().submitTx((tx));
     }
 
 }

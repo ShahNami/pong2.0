@@ -36,4 +36,7 @@ public class Vector {
        this.setY(this.getY() + vector.getY());
     }
 
+    public Vector mult(int magnitude) {
+        return new Vector(this.x * magnitude, this.y * magnitude);
+    }
 }

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import io.mosaicnetworks.babble.node.BabbleState;
 
+import sh.nami.pong.babble.transactions.HitTx;
 import sh.nami.pong.babble.transactions.NewBallTx;
 import sh.nami.pong.babble.transactions.NewPlayerTx;
 import sh.nami.pong.babble.transactions.Tx;
@@ -44,6 +45,16 @@ public class AppState implements BabbleState {
 
                     if(this.ball == null) {
                         this.ball = newBallTx.data;
+                    }
+
+                    break;
+
+                case HIT_BALL:
+                    Log.i("HitBallTx", "Incoming HitBallTx");
+                    HitTx hitTx = HitTx.fromJson(rawTx);
+
+                    if(this.ball != null) {
+                        this.ball.setDirection(hitTx.data.direction);
                     }
 
                     break;
