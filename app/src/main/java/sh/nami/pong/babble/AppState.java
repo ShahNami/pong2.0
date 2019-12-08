@@ -55,6 +55,7 @@ public class AppState implements BabbleState {
 
                     if(this.ball != null) {
                         this.ball.setDirection(hitTx.data.direction);
+//                        this.ball.setPo(hitTx.data.direction);
                     }
 
                     break;

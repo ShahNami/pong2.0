@@ -9,9 +9,20 @@ public class NVector extends Vector {
 
     private void normalise(){
         float magnitude = (float)Math.sqrt(this.getX() * this.getX() + this.getY() * this.getY());
+
         float unitX = this.getX() / magnitude;
         float unitY = this.getY() / magnitude;
+
         this.setX(unitX);
         this.setY(unitY);
+    }
+
+
+    public NVector reflectX() {
+        return new NVector(-this.getX(), this.getY());
+    }
+
+    public NVector reflectY() {
+        return new NVector(this.getX(), -this.getY());
     }
 }

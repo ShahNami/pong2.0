@@ -3,10 +3,12 @@ package sh.nami.pong.models;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
 import sh.nami.pong.Constants;
+import sh.nami.pong.babble.Service;
 import sh.nami.pong.sprites.BallSprite;
 
 public class Ball extends BallSprite {
@@ -41,31 +43,47 @@ public class Ball extends BallSprite {
         return this.velocity;
     }
 
-
-    private BallState didCollide(Player p) {
-        if ((this.position.getX() + this.getWidth() / 2) == p.getPosition().getX() && this.position.getY() >= p.getPosition().getY() && this.position.getY() <= (p.getPosition().getY() + Constants.PADDLE_HEIGHT)) {
-            // Ball hit left paddle
-            return BallState.HIT;
-        } else if ((this.position.getX() - this.getWidth() / 2) == 0) {
-            // Left wall collision
-            return BallState.MISS;
-        } else if ((this.position.getX() + this.getWidth() / 2) >= Constants.screenWidth) {
-            // Right wall collision
-            return BallState.MISS;
-        } else if ((this.position.getY() - this.getHeight() / 2) == 0) {
-            // Top wall collision
-            return BallState.BOUNCE;
-        } else if ((this.position.getY() + this.getHeight() / 2) >= Constants.screenHeight) {
-            // Bottom wall collision
-            return BallState.BOUNCE;
+    private boolean didCollide(Player p) {
+        if ((this.position.getX() + this.getWidth()) == p.getPosition().getX()) {
+            return true;
         } else {
-            // Still in motion
-            return BallState.MOTION;
+            return false;
         }
     }
 
     @Override
     public void update() {
-        this.position.add(this.direction.mult(this.velocity));
+        Player p1 = Service.getInstance().state.getPlayer(1);
+        Player p2 = Service.getInstance().state.getPlayer(2);
+
+        if (this.direction.getX() > 0) {
+            if (this.position.getX() + this.getImage().getWidth() < p2.getPosition().getX()) {
+                this.position.add(this.direction.mult(this.velocity));
+            } else if(this.position.getX() + this.getImage().getWidth() >= p2.getPosition().getX()) {
+                Log.i("P2 Collision", "Collided");
+                Hit hit = new Hit(this.direction.reflectX());
+                Service.getInstance().hitBall(hit);
+            }
+        } else if(this.direction.getX() < 0) {
+            if (this.position.getX() > p1.getPosition().getX() + p1.getWidth()) {
+                this.position.add(this.direction.mult(this.velocity));
+            } else if(this.position.getX() <= p1.getPosition().getX() + p1.getWidth()) {
+                Log.i("P2 Collision", "Collided");
+                Hit hit = new Hit(this.direction.reflectX());
+                Service.getInstance().hitBall(hit);
+            }
+        }
+
+//        if (this.direction.getX() < 0) {
+//            boolean p1Collision = this.didCollide(p1);
+//
+//            if (this.position.getX() > p1.getPosition().getX() + p1.getImage().getWidth()) {
+//                this.position.add(this.direction.mult(this.velocity));
+//            } else {
+//                Log.i("P1 Collision", p1Collision ? "Collided" : "Nope");
+//                Hit hit = new Hit(this.direction.reflectX());
+//                Service.getInstance().hitBall(hit);
+//            }
+//        }
     }
 }
