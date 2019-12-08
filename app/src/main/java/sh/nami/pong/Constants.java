@@ -1,6 +1,9 @@
 package sh.nami.pong;
 
 public class Constants {
+    public static final String EXTRA_TYPE = "sh.nami.pong.TYPE";
+    public static final String EXTRA_MONIKER = "sh.nami.pong.MONIKER";
+
     public static final long TARGET_FPS = 60;
     public enum Type {
         NEW_PLAYER,

@@ -22,7 +22,7 @@ public class Sprite {
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(image, this.position.getX(), this.position.getY(), null);
+        canvas.drawBitmap(this.image, this.position.getX(), this.position.getY(), null);
     }
 
     public void update() {
@@ -31,6 +31,10 @@ public class Sprite {
 
     public Bitmap getImage() {
         return this.image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 
     public Vector getPosition() {

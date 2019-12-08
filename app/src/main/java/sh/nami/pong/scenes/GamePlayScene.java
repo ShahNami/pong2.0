@@ -43,8 +43,8 @@ public class GamePlayScene implements Scene {
             Player p2 = Service.getInstance().state.getPlayer(2);
 
             if(p1 != null && p2 != null) {
-                p1.draw(canvas);
-                p2.draw(canvas);
+                //p1.draw(canvas);
+                //p2.draw(canvas);
             }
         }
     }

@@ -14,8 +14,6 @@ import io.mosaicnetworks.babble.utils.Utils;
 import sh.nami.pong.babble.Service;
 
 public class MainActivity extends Activity {
-    public static final String EXTRA_TYPE = "sh.nami.pong.TYPE";
-    public static final String EXTRA_MONIKER = "sh.nami.pong.MONIKER";
 
     private String moniker = "Player";
 
@@ -43,8 +41,8 @@ public class MainActivity extends Activity {
         }
 
         Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra(EXTRA_TYPE, 0);
-        intent.putExtra(EXTRA_MONIKER, this.moniker);
+        intent.putExtra(Constants.EXTRA_TYPE, 0);
+        intent.putExtra(Constants.EXTRA_MONIKER, this.moniker);
 
         startActivity(intent);
     }

@@ -7,4 +7,5 @@ public class Tile extends Sprite {
     public Tile(Bitmap image) {
         super(image);
     }
+
 }
