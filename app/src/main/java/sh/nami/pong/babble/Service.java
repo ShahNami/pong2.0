@@ -8,7 +8,6 @@ import io.mosaicnetworks.babble.node.BabbleService;
 import sh.nami.pong.Constants;
 import sh.nami.pong.babble.transactions.NewBallTx;
 import sh.nami.pong.babble.transactions.NewPlayerTx;
-import sh.nami.pong.models.Vector;
 
 public class Service extends BabbleService<AppState> {
     private static Service INSTANCE;

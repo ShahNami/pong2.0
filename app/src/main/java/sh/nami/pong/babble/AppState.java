@@ -1,7 +1,9 @@
 package sh.nami.pong.babble;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import io.mosaicnetworks.babble.node.BabbleState;
 
@@ -32,17 +34,20 @@ public class AppState implements BabbleState {
             switch(tx.type) {
                 case NEW_PLAYER :
                     NewPlayerTx newPlayerTx = NewPlayerTx.fromJson(rawTx);
+                    Bitmap paddle = BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.paddle);
+
                     if(this.player1 == null) {
-                        this.player1 = new Player(BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.paddle), newPlayerTx.moniker, new Vector(newPlayerTx.x, newPlayerTx.y));
+                        this.player1 = new Player(paddle, newPlayerTx.moniker, new Vector(newPlayerTx.x, newPlayerTx.y));
                     }
                     else if(this.player2 == null){
-                        this.player2 = new Player(BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.paddle), newPlayerTx.moniker, new Vector(newPlayerTx.x, newPlayerTx.y));
+                        this.player2 = new Player(paddle, newPlayerTx.moniker, new Vector(newPlayerTx.x, newPlayerTx.y));
                     }
                     break;
                 case INIT_BALL :
                     NewBallTx newBallTx = NewBallTx.fromJson(rawTx);
+                    Bitmap ball = BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.ball);
                     if(this.ball == null) {
-                        this.ball = new Ball(BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.ball), new Vector(newBallTx.x, newBallTx.y), new NVector(1,1));
+                        this.ball = new Ball(ball, new Vector(newBallTx.x, newBallTx.y), new NVector(1,1));
                     }
                     break;
                 default :
