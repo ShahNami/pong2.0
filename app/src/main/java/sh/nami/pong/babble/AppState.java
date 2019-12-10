@@ -5,11 +5,13 @@ import android.util.Log;
 import io.mosaicnetworks.babble.node.BabbleState;
 
 import sh.nami.pong.babble.transactions.HitTx;
+import sh.nami.pong.babble.transactions.MissTx;
 import sh.nami.pong.babble.transactions.MovePlayerTx;
 import sh.nami.pong.babble.transactions.NewBallTx;
 import sh.nami.pong.babble.transactions.NewPlayerTx;
 import sh.nami.pong.babble.transactions.Tx;
 import sh.nami.pong.models.Ball;
+import sh.nami.pong.models.NVector;
 import sh.nami.pong.models.Player;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -71,6 +73,18 @@ public class AppState implements BabbleState {
 
                     break;
 
+                case MISS_BALL:
+                    Log.i("MissBallTx", "Incoming MissBallTx");
+                    MissTx missTx = MissTx.fromJson(rawTx);
+                    Player p = getPlayerBy(missTx.data.player);
+
+                    if(this.ball != null && p != null) {
+                        this.ball.setPosition(p.getPosition());
+                        p.incrementScore();
+                    }
+
+                    break;
+
                 default:
                     break;
 
@@ -98,6 +112,14 @@ public class AppState implements BabbleState {
                 break;
         }
         return this.player1;
+    }
+
+    public Player getPlayerBy(Player p) {
+        if(p == this.player1) {
+            return this.player1;
+        } else {
+            return this.player2;
+        }
     }
 
     public Ball getBall() {

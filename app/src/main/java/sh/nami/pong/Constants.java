@@ -14,7 +14,8 @@ public class Constants {
         NEW_PLAYER,
         INIT_BALL,
         HIT_BALL,
-        MOVE_PLAYER
+        MOVE_PLAYER,
+        MISS_BALL,
     }
     public static final int PADDLE_MARGIN = 30;
     public static final int PADDLE_HEIGHT = 50;

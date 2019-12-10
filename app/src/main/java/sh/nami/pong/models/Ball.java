@@ -3,10 +3,6 @@ package sh.nami.pong.models;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
-import android.graphics.drawable.shapes.OvalShape;
-import android.graphics.drawable.shapes.RectShape;
-import android.graphics.drawable.shapes.Shape;
-import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -47,39 +43,58 @@ public class Ball extends BallSprite {
 
 
     // https://yal.cc/rectangle-circle-intersection-test/
-    private boolean intersects(Rect p) {
-        int deltaX = this.getPosition().getX() - Math.max(p.left, Math.min(this.getPosition().getX(), p.right));
-        int deltaY = this.getPosition().getY() - Math.max(p.top, Math.min(this.getPosition().getY(), p.bottom));
-        return (deltaX * deltaX + deltaY * deltaY) < (this.getWidth() / 2 * this.getHeight() / 2);
+    // https://stackoverflow.com/questions/21089959/detecting-collision-of-rectangle-with-circle
+    private boolean didCollide(Rect p) {
+        int r = this.getWidth() / 2;
+        int distX = Math.abs(this.getCenterX() - p.left-p.width()/2);
+        int distY = Math.abs(this.getCenterY() - p.top-p.height()/2);
+
+        if (distX > (p.width()/2 + r)) { return false; }
+        if (distY > (p.height()/2 + r)) { return false; }
+
+        if (distX <= (p.width()/2)) { return true; }
+        if (distY <= (p.height()/2)) { return true; }
+
+        int dx=distX-p.width()/2;
+        int dy=distY-p.height()/2;
+        return (dx*dx+dy*dy<=(r*r));
     }
 
     private BallState didCollide(Player p1, Player p2) {
 
         // Headed towards Player 2
         if (this.direction.getX() > 0) {
-            if (this.position.getX() + this.getImage().getWidth() < p2.getPosition().getX()) {
-                return BallState.MOTION;
-            } else if (this.position.getX() + this.getImage().getWidth() >= p2.getPosition().getX()) {
-               return BallState.HIT;
+            if(didCollide(p2.getBounds())) {
+                return BallState.HIT;
+            } else if(this.getPosition().getX() > p2.getPosition().getX()) {
+                return BallState.MISS;
             }
         // Headed towards Player 1
         } else if(this.direction.getX() < 0) {
-            if (this.position.getX() > p1.getPosition().getX() + p1.getWidth()) {
-                return BallState.MOTION;
-            } else if(this.position.getX() <= p1.getPosition().getX() + p1.getWidth() && this.position.getY() <= p1.getPosition().getY() + p1.getHeight() && this.position.getY() >= p1.getPosition().getY()) {
+            if(didCollide(p1.getBounds())) {
                 return BallState.HIT;
+            } else if(this.getPosition().getX() < p1.getPosition().getX()) {
+                return BallState.MISS;
             }
         }
         return BallState.MOTION;
     }
 
     private void collideHandler(BallState state) {
+        Player p1 = Service.getInstance().state.getPlayer(1);
+        Player p2 = Service.getInstance().state.getPlayer(2);
+
         switch(state) {
             case HIT:
                 Hit hit = new Hit(this.direction.reflectX());
                 Service.getInstance().hitBall(hit);
                 break;
             case MISS:
+                Miss miss = new Miss(p1, this.direction.reflectX());
+                if(this.direction.getX() < 0) {
+                    miss = new Miss(p2, this.direction.reflectX());
+                }
+                Service.getInstance().missBall(miss);
                 break;
             case BOUNCE:
                 break;
@@ -98,7 +113,15 @@ public class Ball extends BallSprite {
 
         BallState state = this.didCollide(p1, p2);
         this.collideHandler(state);
-        Log.i("update", "Ball collided with P2: " + this.intersects(p2.getBounds()));
+        this.position.add(this.direction.mult(this.velocity));
 
+    }
+
+    private int getCenterX() {
+        return this.getPosition().getX() + this.getWidth() / 2;
+    }
+
+    private int getCenterY() {
+        return this.getPosition().getY() + this.getHeight() / 2;
     }
 }

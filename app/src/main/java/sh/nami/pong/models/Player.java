@@ -1,11 +1,7 @@
 package sh.nami.pong.models;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -38,6 +34,10 @@ public class Player extends PaddleSprite {
 
     public int getScore() {
         return this.score;
+    }
+
+    public void incrementScore() {
+        this.score++;
     }
 
     @Override
