@@ -1,6 +1,11 @@
 package sh.nami.pong.models;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -48,6 +53,10 @@ public class Player extends PaddleSprite {
 
     public void move(Vector vector) {
         this.newPosition = vector;
+    }
+
+    public Rect getBounds() {
+        return new Rect(this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getX() + this.getWidth(), this.getPosition().getY() + this.getHeight());
     }
 
 }

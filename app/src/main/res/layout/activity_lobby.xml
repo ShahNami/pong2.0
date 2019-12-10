@@ -3,8 +3,22 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/lobbyList"
+    <TextView
+        android:id="@+id/txtP1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:text="Waiting..." />
+
+    <TextView
+        android:id="@+id/txtP2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Waiting..." />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="startGame"
+        android:text="Start Game" />
 </LinearLayout>
